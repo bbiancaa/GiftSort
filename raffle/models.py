@@ -21,7 +21,7 @@ class Participant(models.Model):
         return self.name
 
 class Room(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
+    room_id = models.UUIDField(default=uuid.uuid4, unique=True)
     name = models.CharField(max_length=100, verbose_name='Name of Room', null=False)
     link = models.CharField(max_length=100)
     min_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Minimum value')

@@ -1,6 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% comment %} code over here {% endcomment %}
+<div class="container">
+    <form>
+        <body class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6">
+                    <label for="id_name">Nome da sala</label>
+                    <input type="id_name" class="form-control" id="id_name" aria-describedby="" placeholder="Digite o nome da sala">
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-3">
+                    <label for="id_min_value">Valor mínimo</label>
+                    <input type="id_min_value" class="form-control" id="id_min_value" placeholder="Digite o valor mínimo">
+                </div>
+                <div class="col-lg-3">
+                    <label for="id_max_value">Valor máximo</label>
+                    <input type="id_max_value" class="form-control" id="id_max_value" placeholder="Digite o valor máximo">
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <button type="submit" class="btn btn-lg btn-danger">Criar Sala</button>
+            </div>
+        </body>
+    </form>
+</div>
+
 
 {% endblock %}

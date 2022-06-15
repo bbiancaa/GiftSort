@@ -1,30 +1,27 @@
 {% extends 'base.html' %}
 {% block content%}
 
-  <body class="text-center">
+  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column text-center">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        
+      </div>
+    </header>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          
-        </div>
-      </header>
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">GiftSort</h1>
+      <p class="lead">Crie seu grupo e convide seus amigos! O GiftSort tem uma plataforma só para isso ;)</p>
+      <p class="lead">
+        <a href="{% url 'criar-sala' %}" class="btn btn-lg btn-danger">Criar Sala</a>
+        <a href="#" class="btn btn-lg btn-secondary">Entrar Sala</a>
+      </p>
+    </main>
 
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading">GiftSort</h1>
-        <p class="lead">Crie seu grupo e convide seus amigos! O GiftSort tem uma plataforma só para isso ;)</p>
-        <p class="lead">
-          <a href="{% url 'criar-sala' %}" class="btn btn-lg btn-danger">Criar Sala</a>
-          <a href="#" class="btn btn-lg btn-secondary">Entrar Sala</a>
-        </p>
-      </main>
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>GiftSort 2022 by <a href="https://twitter.com/">@everybody</a>.</p>
+      </div>
+    </footer>
+  </div>
 
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>GiftSort 2022 by <a href="https://twitter.com/">@everybody</a>.</p>
-        </div>
-      </footer>
-    </div>
-
-  </body>
 {% endblock %}

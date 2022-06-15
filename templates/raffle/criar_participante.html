@@ -2,5 +2,64 @@
 
 {% block content %}
 {% comment %} code over here {% endcomment %}
+ 
+    <form>
+        <h5>Para participar do sorteio preencha o formulário abaixo! <span class="badge badge-secondary"></span></h5>
+        <div class="form-group">
+            <label for="formGroupExampleInput">Id</label>
+            <input type="text" class="form-control" id="id_id" placeholder="Id", style="width: 500px;">
+          </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Nome</label>
+          <input type="text" class="form-control" id="id_name" placeholder="Nome", style="width: 500px;">
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Email</label>
+          <input type="text" class="form-control" id="id_email" placeholder="Email", style="width: 500px;">
+        </div>
+    
+          <div class="form-group">
+              <label class="mr-sm-2" for="inlineFormCustomSelect">Categorias:</label>
+              <select class="custom-select custom-select " id="id_category" style="width: 404px;">
+                <option selected>Nenhuma</option>
+                <option value="1">Brinquedo</option>
+                <option value="2">Roupa</option>
+                <option value="3">Acessório</option>
+              </select>
+            </div>
+            <div class="form-group">
+                    <label for="formGroupExampleInput">Observação</label>
+                    <input type="text" class="form-control" id="id_obs" placeholder="Observação"  style="width: 500px;">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="id_host">
+                <label class="form-check-label" for="autoSizingCheck">
+                  Host
+                </label>
+              </div>
+              <br>
+              <button class="btn btn-primary" type="submit">Submit form</button>
+              
+
+              <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </form>
 
 {% endblock %}

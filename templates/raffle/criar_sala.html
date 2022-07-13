@@ -7,21 +7,21 @@
     {% csrf_token %}
       <div class="row">
         <div class="col-lg-12">
-          <label for="id_name">Nome da sala</label>
-          <input type="text" class="form-control" name="name" id="id_name" aria-describedby="" placeholder="Digite o nome da sala" />
+          <label for="id_name">Crie um nome para sua sala: </label>
+          <input type="text" class="form-control" name="name" aria-describedby="" placeholder="Digite o nome da sala" />
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-lg-6">
-          <label for="id_min_value">Valor mínimo</label>
-          <input type="number" class="form-control" name="min_value" id="id_min_value" placeholder="R$" />
+          <label for="id_min_value">Digite o valor mínimo</label>
+          <input type="number" class="form-control" name="min_value" placeholder="R$" />
         </div>
         <div class="col-lg-6">
-          <label for="id_max_value">Valor máximo</label>
-          <input type="number" class="form-control" name="max_value" id="id_max_value" placeholder="R$" />
+          <label for="id_max_value">Digite o valor máximo</label>
+          <input type="number" class="form-control" name="max_value" placeholder="R$" />
         </div>
       </div>
-      <div class="text-center" >
+      <div class="text-center mt-4" >
         <button type="submit" class="btn btn-lg btn-danger">Criar Sala</button>
       </div>
     </form>

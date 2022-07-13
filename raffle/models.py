@@ -19,6 +19,11 @@ class Participant(models.Model):
     
     def __str__(self):
         return self.name
+        
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('participant-detail', kwargs={'pk' : self.pk})
+
 
 class Room(models.Model):
     room_id = models.UUIDField(default=uuid.uuid4, unique=True)
@@ -26,7 +31,11 @@ class Room(models.Model):
     link = models.CharField(max_length=100)
     min_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Minimum value')
     max_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Maximum value')
-    participant = models.ManyToManyField(Participant)
+    participant = models.ManyToManyField(Participant, blank=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('room-detail', kwargs={'pk' : self.pk})

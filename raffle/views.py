@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, CreateView, DetailView
 from raffle.models import Room, Participant
-from raffle.forms import RoomForm
+from raffle.forms import RoomForm, ParticipantForm
 
 class HomeView(TemplateView):
     template_name = "index.html"
@@ -14,8 +14,9 @@ class CreateRoomView(CreateView):
 
 class CreateParticipantView(CreateView):
     model = Participant
+    form_class = ParticipantForm
     template_name = 'raffle/criar_participante.html'
-    fields = '__all__'
+    success_url= '/'
 
 
 class DetailRoomView(DetailView):

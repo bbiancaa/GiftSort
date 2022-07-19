@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 from raffle.models import Room, Participant
 from raffle.forms import RoomForm
 
@@ -18,3 +18,7 @@ class CreateParticipantView(CreateView):
     fields = '__all__'
 
 
+class DetailRoomView(DetailView):
+    model = Room
+    template_name = 'raffle/detalhe_sala.html'
+    form_class = RoomForm

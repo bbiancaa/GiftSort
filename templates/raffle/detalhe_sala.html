@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="align-self-center">
+      <div class="row mt-4">
+      <table class="table table-hover">
+        <thead>
+            <tr>  
+              <th scope="colspan"> Nome da sala </th>
+              <th scope="colspan"> Valor mínimo </th>
+              <th scope="colspan"> Valor máximo </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            {% for room in object.room.all %}
+                    <td>"{{ room.name }}" </td>
+                    <td>"{{ room.min_value }}" </td>
+                    <td>"{{ room.max_value }}" </td>
+            {% endfor %}
+            </tr>
+          </tbody>
+      </table>
+      </div>
+    <div class="row mt-4">
+      <table class="table table-hover">
+        <thead>
+            <tr>  
+              <th scope="colspan"> Nome </th>
+              <th scope="colspan"> Email </th>
+              <th scope="colspan"> Categoria </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            {% for participant in object.participant.all %}
+                    <td>"{{ participant.name }}" </td>
+                    <td>"{{ participant.email }}" </td>
+                    <td>"{{ participant.category }}" </td>
+            {% endfor %}
+            </tr>
+          </tbody>
+      </table>
+      </div>
+      <div class="text-center mt-4" >
+        <button type="submit" class="btn btn-lg btn-info" id="sortear">Sortear</button>
+      </div>
+  </div>
+  
+{% endblock %}

@@ -14,7 +14,26 @@
         
       <p class="lead">
         <a href="{% url 'criar-sala' %}" class="btn btn-lg btn-danger">Criar Sala</a>
-        <a href="#" class="btn btn-lg btn-secondary">Entrar Sala</a>
+        <a href="#" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Entrar Sala</a>
+<!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Digite o código da sala:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          </button>
+       </div>
+       <div class="modal-body">
+            <input class="form-control" id="message-text">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+         <button type="button" class="btn btn-dark">Entrar</button>
+       </div>
+     </div>
+   </div>
+  </div>
       </p>
     </main>
 

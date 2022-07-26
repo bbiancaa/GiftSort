@@ -38,4 +38,4 @@ class Room(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('detalhe-sala', kwargs={'pk' : self.pk})
+        return reverse('criar-participante', kwargs={'room_id' : self.room_id})

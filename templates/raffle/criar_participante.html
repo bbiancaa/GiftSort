@@ -2,8 +2,22 @@
 
 {% block content %}
 {% comment %} code over here {% endcomment %}
- 
 <div class="align-self-center">
+
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+{% endif %}
   <form method="post">
     {% csrf_token %}
         <h5>Para participar do sorteio preencha o formulário abaixo! <span class="badge badge-secondary"></span></h5>

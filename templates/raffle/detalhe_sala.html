@@ -14,11 +14,9 @@
           </thead>
           <tbody>
             <tr>
-            {% for room in object.room.all %}
-                    <td>"{{ room.name }}" </td>
-                    <td>"{{ room.min_value }}" </td>
-                    <td>"{{ room.max_value }}" </td>
-            {% endfor %}
+                  <td>{{ object.name }} </td>
+                  <td>{{ object.min_value }}</td>
+                  <td>{{ object.max_value }}</td>
             </tr>
           </tbody>
       </table>

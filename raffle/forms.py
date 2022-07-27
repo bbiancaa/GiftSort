@@ -14,8 +14,7 @@ class ParticipantForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'custom-select custom-select'}),
         empty_label='Selecione'
         )
-    host = forms.BooleanField(required=False)
     obs = forms.CharField(required=False, widget=forms.Textarea())
     class Meta:
         model = Participant
-        fields = ('name', 'email', 'category', 'obs', 'host')
+        fields = ('name', 'email', 'category', 'obs')

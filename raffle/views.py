@@ -31,6 +31,7 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         participant = form.save(commit=False)
+        participant.host = True
         participant.save()
         room = Room.objects.get(room_id=self.kwargs.get('room_id'))
         room.participant.add(participant)

@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
 from raffle.models import Room, Participant
 from raffle.forms import RoomForm, ParticipantForm
 from django.contrib.messages.views import SuccessMessageMixin
@@ -63,3 +63,12 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
         room = Room.objects.get(link=self.kwargs.get('link_short'))
         room.participant.add(participant)
         return super().form_valid(form)
+
+
+
+class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
+    model = Participant
+    form_class= ParticipantForm
+    template_name = 'raffle/criar_participante.html'
+    success_message = "Cadastro editado com sucesso"
+    success_url = '/'

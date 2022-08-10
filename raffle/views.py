@@ -83,7 +83,7 @@ class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
 class UpdateRoomView(SuccessMessageMixin, UpdateView):
     model = Room
     form_class= RoomForm
-    template_name = 'raffle/criar_sala.html'
+    template_name = 'raffle/editar_sala.html'
     success_message = "Sala editada com sucesso"
     success_url = '/'
 

@@ -72,10 +72,20 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-
 class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
     model = Participant
     form_class= ParticipantForm
     template_name = 'raffle/editar_participante.html'
     success_message = "Cadastro editado com sucesso"
     success_url = '/'
+
+
+class UpdateRoomView(SuccessMessageMixin, UpdateView):
+    model = Room
+    form_class= RoomForm
+    template_name = 'raffle/criar_sala.html'
+    success_message = "Sala editada com sucesso"
+    success_url = '/'
+
+    def get_object(self):
+        return Room.objects.get(room_id=self.kwargs['room_id'])

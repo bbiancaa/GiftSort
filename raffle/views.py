@@ -69,6 +69,6 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
 class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
     model = Participant
     form_class= ParticipantForm
-    template_name = 'raffle/criar_participante.html'
+    template_name = 'raffle/editar_participante.html'
     success_message = "Cadastro editado com sucesso"
     success_url = '/'

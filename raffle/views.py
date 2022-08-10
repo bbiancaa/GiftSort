@@ -2,8 +2,11 @@ from django.views.generic import TemplateView, CreateView, DetailView, UpdateVie
 from raffle.models import Room, Participant
 from raffle.forms import RoomForm, ParticipantForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.shortcuts import redirect
 import random
 import string
+
 
 class HomeView(TemplateView):
     template_name = "index.html"
@@ -61,6 +64,10 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
         participant = form.save(commit=False)
         participant.save()
         room = Room.objects.get(link=self.kwargs.get('link_short'))
+        if room.is_locked:
+            messages.error(self.request, "Sala não permite novos participantes", extra_tags="danger")
+            participant.delete()
+            return redirect(self.success_url)
         room.participant.add(participant)
         return super().form_valid(form)
 

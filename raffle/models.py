@@ -32,7 +32,8 @@ class Room(models.Model):
     min_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Minimum value')
     max_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Maximum value')
     participant = models.ManyToManyField(Participant, blank=True)
-
+    is_locked = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.name
 

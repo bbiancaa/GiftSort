@@ -11,6 +11,7 @@
                         <th scope="col"> Nome da sala</th>
                         <th scope="col"> Valor mínimo</th>
                         <th scope="col"> Valor máximo</th>
+                        <th scope="col"> Link para cadastro</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -18,6 +19,7 @@
                         <td>{{ object.name }} </td>
                         <td>{{ object.min_value }}</td>
                         <td>{{ object.max_value }}</td>
+                        <td><a href="{% url 'criar-participante' object.link %}">{{ link_short }}</a></td>
                     </tr>
                     </tbody>
                 </table>

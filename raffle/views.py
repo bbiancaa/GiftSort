@@ -116,6 +116,7 @@ class DetailRoomForRaffleView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailRoomForRaffleView, self).get_context_data(**kwargs)
         context['raffle_participants'] = RaffleParticipant.objects.filter(room=self.object)
+        context['link_short'] = self.request.get_host() + reverse('criar-participante', kwargs={'link_short': self.get_object().link})
         return context
 
 
@@ -123,6 +124,9 @@ class ApplyRaffle(View):
     def post(self, request, *args, **kwargs):
         room_id = request.POST.get('room_id')
         room = Room.objects.get(room_id=room_id)
+        if room.participant.count() < 2:
+            messages.error(self.request, "Sala precisa ter mais participantes", extra_tags="danger")
+            return redirect(f"{reverse('detalhe-sortear-sala')}?room_id={room_id}")
         while True:
             participants = list(room.participant.all().values_list('id', flat=True))
             for participant in room.participant.all():
@@ -138,5 +142,7 @@ class ApplyRaffle(View):
                     room=room)
                 participants.append(participant.id)
             if len(RaffleParticipant.objects.filter(room=room)) == room.participant.count(): break
-            messages.success(request, "Sorteio realizado com sucesso!")
+        room.is_locked = True
+        room.save()
+        messages.success(request, "Sorteio realizado com sucesso!")
         return redirect(f"{reverse('detalhe-sortear-sala')}?room_id={room_id}")

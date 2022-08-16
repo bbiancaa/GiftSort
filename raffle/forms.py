@@ -24,7 +24,7 @@ class ParticipantForm(forms.ModelForm):
         empty_label='Selecione'
         )
     obs = forms.CharField(required=False, widget=forms.Textarea())
-    link_short = forms.CharField(max_length=50)
+    link_short = forms.CharField(max_length=50, required=False)
 
     def clean(self):
         cleaned_data = super().clean()

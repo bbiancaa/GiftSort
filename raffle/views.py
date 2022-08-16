@@ -43,6 +43,8 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
         participant.save()
         room = Room.objects.get(room_id=self.kwargs.get('room_id'))
         room.participant.add(participant)
+        room.participant_adm = participant
+        room.save()
         return super().form_valid(form)
 
     def get_success_message(self, cleaned_data):
@@ -91,7 +93,20 @@ class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
     success_url = '/'
 
     def get_object(self):
-        return Participant.objects.get(id=self.request.GET['participant_id'])
+        try:
+            participant = Participant.objects.filter(id=self.request.GET['participant_id'])
+        except:
+            participant = Participant.objects.filter(email=self.request.GET['participant_id'])
+        if participant.exists():
+            return participant.last()
+        messages.error(self.request, "Nenhum registro encontrado com essas informações.", extra_tags="danger")
+
+    def get(self, request):
+        self.object = self.get_object()
+        if not self.object:
+            return redirect('home')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 class UpdateRoomView(UpdateView):
@@ -102,7 +117,13 @@ class UpdateRoomView(UpdateView):
     success_url = '/'
 
     def get_object(self):
-        return Room.objects.get(room_id=self.request.GET['room_id'])
+        try:
+            room = Room.objects.filter(room_id=self.request.GET['room_id'])
+        except:
+            room = Room.objects.filter(participant_adm__email=self.request.GET['room_id'])
+        if room.exists():
+            return room.last()
+        messages.error(self.request, "Nenhum sala encontrado com essas informações.", extra_tags="danger")
 
     def post(self, request, *args, **kwargs):
             if self.get_object().is_locked:
@@ -111,6 +132,13 @@ class UpdateRoomView(UpdateView):
                 messages.success(self.request, self.success_message)
             return super(UpdateRoomView, self).post(request, args, kwargs)
 
+    def get(self, request):
+        self.object = self.get_object()
+        if not self.object:
+            return redirect('home')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
 
 class DetailRoomForRaffleView(DetailView):
     model = Room
@@ -118,7 +146,20 @@ class DetailRoomForRaffleView(DetailView):
     form_class = RoomForm
 
     def get_object(self):
-        return Room.objects.get(room_id=self.request.GET['room_id'])
+        try:
+            room = Room.objects.filter(room_id=self.request.GET['room_id'])
+        except:
+            room = Room.objects.filter(participant_adm__email=self.request.GET['room_id'])
+        if room.exists():
+            return room.last()
+        messages.error(self.request, "Nenhum sala encontrado com essas informações.", extra_tags="danger")
+
+    def get(self, request):
+        self.object = self.get_object()
+        if not self.object:
+            return redirect('home')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(DetailRoomForRaffleView, self).get_context_data(**kwargs)
@@ -159,7 +200,7 @@ class DetailRaffleUser(DetailView):
             raffle_participant = RaffleParticipant.objects.filter(
                 participant__email=self.request.GET.get('participant_id'))
         if raffle_participant.exists():
-            return raffle_participant.first()
+            return raffle_participant.last()
         messages.error(self.request, "Nenhum participante encontrado com essas informações.", extra_tags="danger")
 
     def get(self, request):

@@ -35,6 +35,7 @@ class Room(models.Model):
     max_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
                                     verbose_name='Maximum value')
     participant = models.ManyToManyField(Participant, blank=True)
+    participant_adm = models.ForeignKey(Participant, null=True, on_delete=models.CASCADE, related_name='participant_adm')
     is_locked = models.BooleanField(default=False)
 
     def __str__(self):

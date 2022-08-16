@@ -94,7 +94,7 @@ class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
         return Participant.objects.get(id=self.request.GET['participant_id'])
 
 
-class UpdateRoomView(SuccessMessageMixin, UpdateView):
+class UpdateRoomView(UpdateView):
     model = Room
     form_class = RoomForm
     template_name = 'raffle/editar_sala.html'
@@ -103,6 +103,13 @@ class UpdateRoomView(SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return Room.objects.get(room_id=self.request.GET['room_id'])
+
+    def post(self, request, *args, **kwargs):
+            if self.get_object().is_locked:
+                messages.error(self.request, "Sala não pode ser atualizada\nSorteio já realizado", extra_tags="danger")
+            else:
+                messages.success(self.request, self.success_message)
+            return super(UpdateRoomView, self).post(request, args, kwargs)
 
 
 class DetailRoomForRaffleView(DetailView):

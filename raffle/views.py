@@ -30,7 +30,8 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
     form_class = ParticipantForm
     template_name = 'raffle/criar_participante.html'
     success_url = '/'
-    success_message = "Agora você já está participando do Amigo Secreto, link para compartilhar a sala %(link)s"
+    success_message = "Agora você já está participando do Amigo Secreto, link para compartilhar a sala: \n%(link)s"\
+                      "\n\nId da sala:\n%(room_id)s\nGuarde pois vai precisar para fazer o sorteio!"
 
     def form_valid(self, form):
         participant = form.save(commit=False)
@@ -43,7 +44,8 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
             cleaned_data,
-            link=self.request.build_absolute_uri(Room.objects.get(room_id=self.kwargs.get('room_id')).link)
+            link=self.request.build_absolute_uri(Room.objects.get(room_id=self.kwargs.get('room_id')).link),
+            room_id=self.kwargs.get('room_id')
         )
 
 
@@ -60,6 +62,11 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
     success_message = "Agora você já está participando do Amigo Secreto"
     success_url = '/'
 
+    def get_context_data(self, **kwargs):
+        context = super(CreateParticipanteShortView, self).get_context_data(**kwargs)
+        context['link_short'] = self.kwargs.get('link_short')
+        return context
+
     def form_valid(self, form):
         participant = form.save(commit=False)
         participant.save()
@@ -74,18 +81,30 @@ class CreateParticipanteShortView(SuccessMessageMixin, CreateView):
 
 class UpdateParticipanteView(SuccessMessageMixin, UpdateView):
     model = Participant
-    form_class= ParticipantForm
+    form_class = ParticipantForm
     template_name = 'raffle/editar_participante.html'
     success_message = "Cadastro editado com sucesso"
     success_url = '/'
 
+    def get_object(self):
+        return Participant.objects.get(id=self.request.GET['participant_id'])
+
 
 class UpdateRoomView(SuccessMessageMixin, UpdateView):
     model = Room
-    form_class= RoomForm
+    form_class = RoomForm
     template_name = 'raffle/editar_sala.html'
     success_message = "Sala editada com sucesso"
     success_url = '/'
 
     def get_object(self):
-        return Room.objects.get(room_id=self.kwargs['room_id'])
+        return Room.objects.get(room_id=self.request.GET['room_id'])
+
+
+class DetailRoomForRaffleView(DetailView):
+    model = Room
+    template_name = 'raffle/detalhe_sala.html'
+    form_class = RoomForm
+
+    def get_object(self):
+        return Room.objects.get(room_id=self.request.GET['room_id'])

@@ -9,10 +9,11 @@ class CategoryGift(models.Model):
     def __str__(self):
         return self.name
 
+
 class Participant(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
     name = models.CharField(max_length=100, null=False)
-    email = models.CharField(max_length=100, null=False, unique=True)
+    email = models.CharField(max_length=100, null=False)
     category = models.ForeignKey(CategoryGift,  on_delete=models.CASCADE)
     obs = models.TextField(blank=True, null=True, verbose_name='Observation')
     host = models.BooleanField(default=False)

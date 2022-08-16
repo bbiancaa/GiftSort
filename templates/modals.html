@@ -1,0 +1,84 @@
+<div class="modal fade" id="ModalCenterVerSala" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <form action="{% url 'detalhe-sortear-sala' %}" method="get">
+                <div class="modal-header" style="background: #333333; color: white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Digite o código da sala:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #333333">
+                    <input class="form-control" id="room_id" name="room_id">
+                </div>
+                <div class="modal-footer" style="background: #333333">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalCenterEditarSala" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <form action="{% url 'editar-sala_uuid' %}" method="get">
+                <div class="modal-header" style="background: #333333; color: white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Digite o código da sala:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #333333">
+                    <input class="form-control" id="room_id" name="room_id">
+                </div>
+                <div class="modal-footer" style="background: #333333">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalCenterEditarCadastro" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <form action="{% url 'editar-participante_uuid' %}" method="get">
+                <div class="modal-header" style="background: #333333; color: white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Digite o seu código de participante:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #333333">
+                    <input class="form-control" id="participant_id" name="participant_id">
+                </div>
+                <div class="modal-footer" style="background: #333333">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalCenterVerSeuResultado" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <form action="{% url 'detalhe-sortear-sala' %}" method="get">
+                <div class="modal-header" style="background: #333333; color: white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Digite o seu código de participante:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #333333">
+                    <input class="form-control" id="room_id" name="room_id">
+                </div>
+                <div class="modal-footer" style="background: #333333">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,55 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% comment %} code over here {% endcomment %}
-<div class="align-self-center">
-
-{% if form.errors %}
-{% for field in form %}
-    {% for error in field.errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
-{% endfor %}
-{% for error in form.non_field_errors %}
-    <div class="alert alert-danger">
-        <strong>{{ error|escape }}</strong>
-    </div>
-{% endfor %}
-{% endif %}
-  <form method="post">
-    {% csrf_token %}
-        <h5>Para participar do sorteio preencha o formulário abaixo! <span class="badge badge-secondary"></span></h5>
-        <div class="form-group">
-          <label for="formGroupExampleInput">Nome</label>
-          <input type="text" class="form-control" id="id_name" name='name' placeholder="Nome", style="width: 500px;">
-        </div>
-        <div class="form-group">
-          <label for="formGroupExampleInput2">Email</label>
-          <input type="text" class="form-control" id="id_email" name='email' placeholder="Email", style="width: 500px;">
-        </div>
-          <div class="form-group">
-              <label class="mr-sm-2" for="inlineFormCustomSelect">Categorias:</label>
-              {{ form.category }}
-            </div>
-            <div class="form-group">
+    {% comment %} code over here {% endcomment %}
+    <div class="container ">
+        <div class="center_div">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ field.label }}: {{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <h5>Para participar do sorteio preencha o formulário abaixo! <span class="badge badge-secondary"></span>
+                </h5>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Nome</label>
+                    <input type="text" class="form-control" id="id_name" name='name' placeholder="Nome"
+                           style="width: 500px;">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Email</label>
+                    <input type="email" class="form-control" id="id_email" name='email' placeholder="Email"
+                           style="width: 500px;">
+                </div>
+                <div class="form-group">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Categorias:</label>
+                    {{ form.category }}
+                </div>
+                <div class="form-group">
                     <label for="formGroupExampleInput">Observação</label>
-                    <input type="text" class="form-control" id="id_obs" name='obs' placeholder="Observação" style="width: 500px;">
-            </div>
-            {% comment %} <div class="form-check">
+                    <textarea class="form-control" id="id_obs" name='obs' placeholder="Observação"
+                              style="width: 500px;"></textarea>
+                </div>
+                <input name="link_short" hidden value="{{ link_short }}">
+                {% comment %} <div class="form-check">
                 <input class="form-check-input" name='host' type="checkbox" id="id_host">
                 <label class="form-check-label" for="autoSizingCheck">
                   Host
                 </label>
               </div> {% endcomment %}
-              <div class="text-center mt-4" >
-                <button type="submit" class="btn btn-lg btn-danger">Entrar</button>
-            </div>
-          </form>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-lg btn-danger">Entrar</button>
+                </div>
+            </form>
         </div>
-              
-              
-
-
+    </div>
 {% endblock %}

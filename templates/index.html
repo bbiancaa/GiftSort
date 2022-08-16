@@ -1,53 +1,41 @@
 {% extends 'base.html' %}
-{% block content%}
+{% block content %}
 
-  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column text-center">
-    <header class="masthead mb-auto">
-      <div class="inner">
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
-              {{ message }}
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column text-center">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+                        {% autoescape on %}
+                            {{ message|linebreaksbr  }}
+                        {% endautoescape %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-    </header>
+        </header>
 
-    <main role="main" class="inner cover">
-      <h1 class="cover-heading">GiftSort</h1>
-      <p class="lead">Não passe vergonha na hora de presentear seu amigo secreto!  Crie seu grupo e convide seus amigos! O GiftSort tem uma plataforma só para isso ;)</p>
-        
-      <p class="lead">
-        <a href="{% url 'criar-sala' %}" class="btn btn-lg btn-danger">Criar Sala</a>
-        <a href="#" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Entrar Sala</a>
-<!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Digite o código da sala:</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          </button>
-       </div>
-       <div class="modal-body">
-            <input class="form-control" id="message-text">
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-         <button type="button" class="btn btn-dark">Entrar</button>
-       </div>
-     </div>
-   </div>
-  </div>
-      </p>
-    </main>
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">GiftSort</h1>
+            <p class="lead">Não passe vergonha na hora de presentear seu amigo secreto! Crie seu grupo e convide seus
+                amigos! O GiftSort tem uma plataforma só para isso ;)</p>
 
-    <footer class="mastfoot mt-auto">
-      <div class="inner">
-        <p>GiftSort 2022 by <a href="https://github.com/bbiancaa">@bbiancaa</a><a href="https://github.com/mascDriver"> @mascDriver</a><a href="https://github.com/michel-welter"> @michel-welter</a></p>
-      </div>
-    </footer>
-  </div>
+            <p class="lead">
+                <a href="{% url 'criar-sala' %}" class="btn btn-lg btn-danger">Criar Sala</a>
+                <a href="#" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#ModalCenterVerSala">Entrar
+                    na
+                    Sala</a>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>GiftSort 2022 by <a href="https://github.com/bbiancaa">@bbiancaa</a><a
+                        href="https://github.com/mascDriver"> @mascDriver</a><a href="https://github.com/michel-welter">
+                    @michel-welter</a></p>
+            </div>
+        </footer>
+    </div>
 
 {% endblock %}

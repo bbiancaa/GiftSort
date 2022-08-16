@@ -4,6 +4,7 @@
     <form method="post">
         {% csrf_token %}
         <div class="container ">
+            <h4 class="mt-5 text-center">Preencha o formulário para criar a sala</h4>
             <div class="center_div">
                 {% if form.errors %}
                     {% for field in form %}
@@ -23,7 +24,8 @@
                     <div class="col-lg-12">
                         <label for="id_name">Crie um nome para sua sala: </label>
                         <input type="text" class="form-control" name="name" aria-describedby=""
-                               placeholder="Digite o nome da sala" value="{% if form.name.value %}{{ form.name.value }}{% endif %}"/>
+                               placeholder="Digite o nome da sala"
+                               value="{% if form.name.value %}{{ form.name.value }}{% endif %}"/>
                     </div>
                 </div>
                 <div class="row mt-2">

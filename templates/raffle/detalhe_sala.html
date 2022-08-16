@@ -3,78 +3,102 @@
 {% block content %}
 
     <div class="container ">
-            <div class="row mt-4">
-                <table class="table table-dark">
-                    <caption>Informações da sala</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col"> Nome da sala</th>
-                        <th scope="col"> Valor mínimo</th>
-                        <th scope="col"> Valor máximo</th>
-                        <th scope="col"> Link para cadastro</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ object.name }} </td>
-                        <td>{{ object.min_value }}</td>
-                        <td>{{ object.max_value }}</td>
-                        <td><a href="{% url 'criar-participante' object.link %}">{{ link_short }}</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row mt-4">
-                <table class="table table-hover table-dark table-striped">
-                    <caption>Lista de participantes</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col"> ID</th>
-                        <th scope="col"> Nome</th>
-                        <th scope="col"> Email</th>
-                        <th scope="col"> Categoria</th>
-                        <th scope="col"> Observação</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for participant in object.participant.all %}
-                        <tr>
-                            <td>{{ participant.id }}</td>
-                            <td>{{ participant.name }}</td>
-                            <td>{{ participant.email }}</td>
-                            <td>{{ participant.category }}</td>
-                            <td>{{ participant.obs }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% if  raffle_participants %}
-                <div class="row mt-4">
-                    <table class="table table-hover table-dark table-striped">
-                        <caption>Resultado</caption>
-                        <thead>
-                        <tr>
-                            <th scope="col"> Nome</th>
-                            <th scope="col"> Tirou</th>
-                            <th scope="col"> Categoria</th>
-                            <th scope="col"> Observação</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for raffle_participant in raffle_participants %}
+        <div class="mt-5 ">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                       aria-controls="home"
+                       aria-selected="true">Informações da Sala</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                       aria-controls="profile" aria-selected="false">Participantes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                       aria-controls="contact" aria-selected="false">Resultado do Sorteio</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row mt-4">
+                        <table class="table table-dark">
+                            <caption>Informações da sala</caption>
+                            <thead>
                             <tr>
-                                <td>{{ raffle_participant.participant }}</td>
-                                <td>{{ raffle_participant.selected_participant }}</td>
-                                <td>{{ raffle_participant.selected_participant.category }}</td>
-                                <td>{{ raffle_participant.selected_participant.obs }}</td>
+                                <th scope="col"> Nome da sala</th>
+                                <th scope="col"> Valor mínimo</th>
+                                <th scope="col"> Valor máximo</th>
+                                <th scope="col"> Link para cadastro</th>
                             </tr>
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ object.name }} </td>
+                                <td>{{ object.min_value }}</td>
+                                <td>{{ object.max_value }}</td>
+                                <td><a href="{% url 'criar-participante' object.link %}">{{ link_short }}</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            {% else %}
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row mt-4">
+                        <table class="table table-hover table-dark table-striped">
+                            <caption>Lista de participantes</caption>
+                            <thead>
+                            <tr>
+                                <th scope="col"> ID</th>
+                                <th scope="col"> Nome</th>
+                                <th scope="col"> Email</th>
+                                <th scope="col"> Preferência por:</th>
+                                <th scope="col"> Observação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for participant in object.participant.all %}
+                                <tr>
+                                    <td>{{ participant.id }}</td>
+                                    <td>{{ participant.name }}</td>
+                                    <td>{{ participant.email }}</td>
+                                    <td>{{ participant.category }}</td>
+                                    <td>{{ participant.obs }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="row mt-4">
+                        <table class="table table-hover table-dark table-striped">
+                            <caption>Resultado</caption>
+                            <thead>
+                            <tr>
+                                <th scope="col"> Nome</th>
+                                <th scope="col"> Tirou</th>
+                                <th scope="col"> Categoria</th>
+                                <th scope="col"> Observação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for raffle_participant in raffle_participants %}
+                                <tr>
+                                    <td>{{ raffle_participant.participant }}</td>
+                                    <td>{{ raffle_participant.selected_participant }}</td>
+                                    <td>{{ raffle_participant.selected_participant.category }}</td>
+                                    <td>{{ raffle_participant.selected_participant.obs }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {% if not raffle_participants %}
                 <div class="text-center mt-4">
                     <form action="{% url 'fazer-sorteio' %}" method="post">
                         {% csrf_token %}
@@ -84,5 +108,6 @@
                 </div>
             {% endif %}
         </div>
+    </div>
 
 {% endblock %}

@@ -4,7 +4,7 @@ from raffle.views import *
 
 
 urlpatterns = [
-    path('', HomeView.as_view()),
+    path('', HomeView.as_view(), name='home'),
     path('criar-sala', CreateRoomView.as_view(), name='criar-sala'),
     path('detalhe-sala/<int:pk>/', DetailRoomView.as_view(), name='detalhe-sala'),
     path('criar-participante/<uuid:room_id>', CreateParticipantView.as_view(), name='criar-participante_uuid'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('editar-sala/', UpdateRoomView.as_view(), name='editar-sala_uuid'),
     path('ver-sala/', DetailRoomForRaffleView.as_view(), name='detalhe-sortear-sala'),
     path('fazer-sorteio/', ApplyRaffle.as_view(), name='fazer-sorteio'),
+    path('detalhe-sorteio-sala/', DetailRaffleUser.as_view(), name='detalhe-sorteio-sala'),
 ]

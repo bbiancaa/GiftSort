@@ -116,7 +116,8 @@ class DetailRoomForRaffleView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailRoomForRaffleView, self).get_context_data(**kwargs)
         context['raffle_participants'] = RaffleParticipant.objects.filter(room=self.object)
-        context['link_short'] = self.request.get_host() + reverse('criar-participante', kwargs={'link_short': self.get_object().link})
+        context['link_short'] = self.request.get_host() + reverse('criar-participante',
+                                                                  kwargs={'link_short': self.get_object().link})
         return context
 
 
@@ -132,8 +133,7 @@ class ApplyRaffle(View):
             for participant in room.participant.all():
                 participants.remove(participant.id)
                 random.shuffle(participants)
-                if participants[0] in RaffleParticipant.objects.filter(selected_participant_id=participants[0],
-                                                                       room=room):
+                if RaffleParticipant.objects.filter(selected_participant_id=participants[0], room=room):
                     participants.append(participant.id)
                     continue
                 RaffleParticipant.objects.get_or_create(
@@ -146,3 +146,25 @@ class ApplyRaffle(View):
         room.save()
         messages.success(request, "Sorteio realizado com sucesso!")
         return redirect(f"{reverse('detalhe-sortear-sala')}?room_id={room_id}")
+
+
+class DetailRaffleUser(DetailView):
+    model = RaffleParticipant
+    template_name = 'raffle/detalhe_sorteio_sala.html'
+
+    def get_object(self, queryset=None):
+        try:
+            raffle_participant = RaffleParticipant.objects.filter(participant_id=self.request.GET.get('participant_id'))
+        except:
+            raffle_participant = RaffleParticipant.objects.filter(
+                participant__email=self.request.GET.get('participant_id'))
+        if raffle_participant.exists():
+            return raffle_participant.first()
+        messages.error(self.request, "Nenhum participante encontrado com essas informações.", extra_tags="danger")
+
+    def get(self, request):
+        self.object = self.get_object()
+        if not self.object:
+            return redirect('home')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)

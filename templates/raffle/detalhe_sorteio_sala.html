@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container ">
+
+            <div class="alert alert-success text-center mt-5">
+                <p> Parabéns <strong>{{ object.participant }}</strong> você tirou
+                    <strong>{{ object.selected_participant }}</strong> no amigo secreto!</p>
+            </div>
+        <div class="row mt-4 center_div">
+            <table class="table table-hover table-dark table-striped">
+                <caption>Resultado</caption>
+                <thead>
+                <tr>
+                    <th scope="col"> Nome</th>
+                    <th scope="col"> Tirou</th>
+                    <th scope="col"> Preferência por:</th>
+                    <th scope="col"> Observação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ object.participant }}</td>
+                    <td>{{ object.selected_participant }}</td>
+                    <td>{{ object.selected_participant.category }}</td>
+                    <td>{{ object.selected_participant.obs }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

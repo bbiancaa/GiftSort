@@ -128,20 +128,13 @@ class ApplyRaffle(View):
         if room.participant.count() < 2:
             messages.error(self.request, "Sala precisa ter mais participantes", extra_tags="danger")
             return redirect(f"{reverse('detalhe-sortear-sala')}?room_id={room_id}")
-        while True:
-            participants = list(room.participant.all().values_list('id', flat=True))
-            for participant in room.participant.all():
-                participants.remove(participant.id)
-                random.shuffle(participants)
-                if RaffleParticipant.objects.filter(selected_participant_id=participants[0], room=room):
-                    participants.append(participant.id)
-                    continue
-                RaffleParticipant.objects.get_or_create(
-                    participant=participant,
-                    selected_participant_id=participants[0],
-                    room=room)
-                participants.append(participant.id)
-            if len(RaffleParticipant.objects.filter(room=room)) == room.participant.count(): break
+        participants = list(room.participant.all().values_list('id', flat=True))
+        random.shuffle(participants)
+        for i in range(len(participants)):
+            RaffleParticipant.objects.get_or_create(
+                participant_id=participants[i],
+                selected_participant_id=participants[(i + 1) % (len(participants))],
+                room=room)
         room.is_locked = True
         room.save()
         messages.success(request, "Sorteio realizado com sucesso!")

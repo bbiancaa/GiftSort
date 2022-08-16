@@ -32,7 +32,8 @@
                     Sala
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterEditarSala">Editar sala</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterEditarSala">Editar
+                        sala</a>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterVerSala">Ver sala</a>
                     <div class="dropdown-divider"></div>
                 </div>
@@ -43,14 +44,31 @@
                     Participante
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterEditarCadastro">Editar Cadastro</a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterVerSeuResultado">Ver resultado</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterEditarCadastro">Editar
+                        Cadastro</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalCenterVerSeuResultado">Ver
+                        resultado</a>
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
         </ul>
     </div>
 </nav>
+<div class="container ">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+                            {% autoescape on %}
+                                {{ message|linebreaksbr }}
+                            {% endautoescape %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </header>
+</div>
 {% block content %}
 {% endblock %}
 

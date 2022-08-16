@@ -12,4 +12,5 @@ urlpatterns = [
     path('editar-participante/', UpdateParticipanteView.as_view(), name='editar-participante_uuid'),
     path('editar-sala/', UpdateRoomView.as_view(), name='editar-sala_uuid'),
     path('ver-sala/', DetailRoomForRaffleView.as_view(), name='detalhe-sortear-sala'),
+    path('fazer-sorteio/', ApplyRaffle.as_view(), name='fazer-sorteio'),
 ]

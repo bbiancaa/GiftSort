@@ -3,7 +3,6 @@
 {% block content %}
 
     <div class="container ">
-        <div class="center_div ">
             <div class="row mt-4">
                 <table class="table table-dark">
                     <caption>Informações da sala</caption>
@@ -48,10 +47,40 @@
                     </tbody>
                 </table>
             </div>
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-lg btn-info" id="sortear">Sortear</button>
-            </div>
+            {% if  raffle_participants %}
+                <div class="row mt-4">
+                    <table class="table table-hover table-dark table-striped">
+                        <caption>Resultado</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col"> Nome</th>
+                            <th scope="col"> Tirou</th>
+                            <th scope="col"> Categoria</th>
+                            <th scope="col"> Observação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for raffle_participant in raffle_participants %}
+                            <tr>
+                                <td>{{ raffle_participant.participant }}</td>
+                                <td>{{ raffle_participant.selected_participant }}</td>
+                                <td>{{ raffle_participant.selected_participant.category }}</td>
+                                <td>{{ raffle_participant.selected_participant.obs }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center mt-4">
+                    <form action="{% url 'fazer-sorteio' %}" method="post">
+                        {% csrf_token %}
+                        <input name="room_id" value="{{ room.room_id }}" hidden>
+                        <button type="submit" class="btn btn-lg btn-info" id="sortear">Sortear</button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
-    </div>
 
 {% endblock %}

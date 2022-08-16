@@ -2,20 +2,6 @@
 {% block content %}
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column text-center">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
-                        {% autoescape on %}
-                            {{ message|linebreaksbr  }}
-                        {% endautoescape %}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </header>
-
         <main role="main" class="inner cover">
             <h1 class="cover-heading">GiftSort</h1>
             <p class="lead">Não passe vergonha na hora de presentear seu amigo secreto! Crie seu grupo e convide seus

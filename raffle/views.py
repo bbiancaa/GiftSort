@@ -1,11 +1,15 @@
-from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
-from raffle.models import Room, Participant
-from raffle.forms import RoomForm, ParticipantForm
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-from django.shortcuts import redirect
 import random
 import string
+
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.views import View
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
+
+from raffle.forms import RoomForm, ParticipantForm
+from raffle.models import Room, Participant, RaffleParticipant
 
 
 class HomeView(TemplateView):
@@ -20,7 +24,7 @@ class CreateRoomView(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         room = form.save(commit=False)
         room.link = ''.join(random.choice(string.ascii_letters)
-                           for x in range(10))
+                            for x in range(10))
         room.save()
         return super().form_valid(form)
 
@@ -30,7 +34,7 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
     form_class = ParticipantForm
     template_name = 'raffle/criar_participante.html'
     success_url = '/'
-    success_message = "Agora você já está participando do Amigo Secreto, link para compartilhar a sala: \n%(link)s"\
+    success_message = "Agora você já está participando do Amigo Secreto, link para compartilhar a sala: \n%(link)s" \
                       "\n\nId da sala:\n%(room_id)s\nGuarde pois vai precisar para fazer o sorteio!"
 
     def form_valid(self, form):
@@ -40,7 +44,7 @@ class CreateParticipantView(SuccessMessageMixin, CreateView):
         room = Room.objects.get(room_id=self.kwargs.get('room_id'))
         room.participant.add(participant)
         return super().form_valid(form)
-    
+
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
             cleaned_data,
@@ -108,3 +112,31 @@ class DetailRoomForRaffleView(DetailView):
 
     def get_object(self):
         return Room.objects.get(room_id=self.request.GET['room_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailRoomForRaffleView, self).get_context_data(**kwargs)
+        context['raffle_participants'] = RaffleParticipant.objects.filter(room=self.object)
+        return context
+
+
+class ApplyRaffle(View):
+    def post(self, request, *args, **kwargs):
+        room_id = request.POST.get('room_id')
+        room = Room.objects.get(room_id=room_id)
+        while True:
+            participants = list(room.participant.all().values_list('id', flat=True))
+            for participant in room.participant.all():
+                participants.remove(participant.id)
+                random.shuffle(participants)
+                if participants[0] in RaffleParticipant.objects.filter(selected_participant_id=participants[0],
+                                                                       room=room):
+                    participants.append(participant.id)
+                    continue
+                RaffleParticipant.objects.get_or_create(
+                    participant=participant,
+                    selected_participant_id=participants[0],
+                    room=room)
+                participants.append(participant.id)
+            if len(RaffleParticipant.objects.filter(room=room)) == room.participant.count(): break
+            messages.success(request, "Sorteio realizado com sucesso!")
+        return redirect(f"{reverse('detalhe-sortear-sala')}?room_id={room_id}")
